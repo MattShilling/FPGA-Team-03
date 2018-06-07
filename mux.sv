@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////
+//Author: Zach Steinberg
+//Module Name: Multiplexer
+//Description: Allows user to switch between what input is desired for SNES control
+///////////////////////////////////////////////////////
 module multiplexer(
 	input [7:0] key_mux,
 	input [7:0] ir_mux,
