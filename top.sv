@@ -1,3 +1,9 @@
+////////////////////////////////////////////////////////
+//Author: Brittany Taggart
+//Module Name: top.sv
+//Description: Top module for the whole project
+///////////////////////////////////////////////////////
+
 module top(
   input logic reset_n,
   input logic clk,
