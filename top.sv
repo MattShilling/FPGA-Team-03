@@ -36,7 +36,7 @@ module top(
   
   snes_encoder snes(
     .clock(ff),
-    .reset(),
+    .reset(reset_n),
     .load(),
     .d(mux_en),
     snes_output(snes_out));
