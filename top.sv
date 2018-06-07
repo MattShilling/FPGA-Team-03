@@ -42,8 +42,4 @@ module top(
     snes_output(snes_out));
   
   
-  
-  
-  
-  
 endmodule
