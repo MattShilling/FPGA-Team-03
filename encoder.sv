@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////
+//Author: Zach Steinberg
+//Module Name: Encoder
+//Description: Converts signal from inputs into signal that the SNES can interpret
+///////////////////////////////////////////////////////
 module snes_encoder (
 	input logic clock,
 	input logic reset,
