@@ -30,7 +30,7 @@ module top(
     .reset_n(reset_n),
   );
     
-  
+  //Inverter for button input
   b_mux = ~button_in;
 
   multiplexer mux(
