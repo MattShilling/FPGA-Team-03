@@ -1,4 +1,5 @@
 module top(
+  input logic reset_n,
   input logic clk,
   input logic kb_in_serial,
   input logic ir_in,
@@ -10,6 +11,7 @@ module top(
   logic [10:0] kb_data;
   logic [31:0] ir_data;
   logic [7:0] mux_en;
+  logic clock_2MHz;
 
   //built in module that access's our chip's oscillator 
   OSCH #("2.08") osc_int (
@@ -17,6 +19,11 @@ module top(
     .OSC(clock_2MHz),
     .SEDSTDBY());
   
+  ClockDivider clk_div(
+    .clock_2MHz(clock_2MHz),
+    .reset_n(reset_n),
+  );
+    
   
   b_mux = ~button_in;
 
@@ -26,6 +33,13 @@ module top(
     .b_mux(b_mux),
     .dip(dip),
     .mux_en(mux_en));
+  
+  snes_encoder snes(
+    .clock(ff),
+    .reset(),
+    .load(),
+    .d(mux_en),
+    snes_output(snes_out));
   
   
   
