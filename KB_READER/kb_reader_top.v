@@ -1,51 +1,66 @@
-
 ////////////////////////////////////////////////////////
 //Author: Matt Shilling
-//Module Name: top.sv
+//Module Name: kb_reader_top.sv
 //Description: Top module for the Keyboard Reader
 ///////////////////////////////////////////////////////
 
-module TOP(input [1:0] kb_in, output reg [8:0] kb_out_reader, output reg avail);
+// INPUTS: [1:0] KB_IN
+//	- kb_in[0] = clock from keyboard
+//  - kb_in[1] = serial data in from keyboard 
 
-	reg [10:0] data_out;
-	reg full_sr;
-	reg sr_reset;
-	reg p_reset;
-	reg pass_check;
+// INPUT: RESET
+//  - reset keyboard reader on startup
 
-	always @(*) begin 		 
+// OUTPUTS: [7:0] kb_reader_out
+//	- strictly data output from keyboard
+
+// OUTPUT: avail
+//  - true if data is available from reader (passed parity check)
+
+
+module TOP(input [1:0] kb_in,
+		   input reset, 
+		   output reg [7:0] kb_reader_out, 
+		   output reg avail);
+	
+	// wire to connect shift reg to kb_reader_out and parity check
+	wire [10:0] data_out;
+	
+	// signal true when the shiftreg fills up
+	wire full_sr;
+	
+	// signal true when kb data in passes parity check
+	wire pass_check;
+	
+	// debug counter from shiftreg
+	wire [3:0] counter;
+	
+	always @(*) begin 
+		// if kb shiftreg is full and passes parity check, make available
 		if(pass_check && full_sr) begin
-			data <= data_out;
-			p_reset <= 1;
+			kb_reader_out <= data_out[9:2];
 			avail <= 1;
-			sr_reset <= 1;
 		end 
-			
-		else if(full_sr && !pass_check) begin
-			data <= 0;
-			p_reset <= 1;
-			avail <= 0;
-			sr_reset <= 1;
-		end
 		
-		else if (!full_sr) begin
-			p_reset <= 0;
-			sr_reset <= 0;
+		// if not, no data available
+		else begin 
+			kb_reader_out <= 0;
 			avail <= 0;
 		end
 	end 
 	
+	// initialize shiftreg module, 11 bits read from KB per key press
 	shiftreg #(.N(11))KB_data(
 		.clk(~kb_in[0]),
-		.reset(sr_reset),
+		.reset(reset),
 		.sin(kb_in[1]),
 		.full(full_sr),
-		.q(data_out) );
+		.q(data_out),
+		.counter(counter) );
 	
+	// initialize parity check module, feed in KB data
 	parity pcheck(
-		.pdata(data_out[9:1]),
-		.en(full_sr),
-		.reset(p_reset),
+		.pdata(data_out),
 		.pass(pass_check) );
 
 endmodule
