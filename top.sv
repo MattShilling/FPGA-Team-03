@@ -49,7 +49,7 @@ module top(
     .reset(reset_n),
     .load(load),
     .d(mux_en),
-    snes_output(snes_out));
+    .snes_output(snes_out));
   
   
 endmodule
