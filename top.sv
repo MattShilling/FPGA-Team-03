@@ -44,6 +44,7 @@ module top(
     .dip(dip),
     .mux_en(mux_en));
   
+  //takes in the data from controller and sends that data to the snes console
   snes_encoder snes(
     .clock(clk),
     .reset(reset_n),
