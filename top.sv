@@ -8,6 +8,7 @@ module top(
   input logic reset_n,
   input logic load,
   input logic clk,
+  input logic clock,
   input logic kb_in_serial,
   input logic ir_in,
   input logic [7:0] button_in,
@@ -46,7 +47,7 @@ module top(
   
   //takes in the data from controller and sends that data to the snes console
   snes_encoder snes(
-    .clock(clk),
+    .clock(clock),
     .reset(reset_n),
     .load(load),
     .d(mux_en),
