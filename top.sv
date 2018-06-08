@@ -6,6 +6,7 @@
 
 module top(
   input logic reset_n,
+  input logic load,
   input logic clk,
   input logic kb_in_serial,
   input logic ir_in,
@@ -18,6 +19,7 @@ module top(
   logic [31:0] ir_data;
   logic [7:0] mux_en;
   logic clock_2MHz;
+  logic clock_1MHz,
 
   //built in module that access's our chip's oscillator 
   OSCH #("2.08") osc_int (
@@ -25,14 +27,16 @@ module top(
     .OSC(clock_2MHz),
     .SEDSTDBY());
   
+  //clock divider
   ClockDivider clk_div(
     .clock_2MHz(clock_2MHz),
     .reset_n(reset_n),
-  );
+    .clock_1MHz(clock_1MHz));
     
   //Inverter for button input
   b_mux = ~button_in;
 
+  //multiplexer that chooses ir, keyboard, or button board
   multiplexer mux(
     .key_mux(key_mux),
     .ir_mux(ir_mux),
@@ -43,7 +47,7 @@ module top(
   snes_encoder snes(
     .clock(ff),
     .reset(reset_n),
-    .load(),
+    .load(load),
     .d(mux_en),
     snes_output(snes_out));
   
