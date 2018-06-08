@@ -1,21 +1,22 @@
-// takes in 11 inputs and outputs the 8 bits to mux
-// 11 bit array enters with start bit(0), data bits(1-8), parity(9), stop bit(10), acknowledge(11)
-
+////////////////////////////////////////////////////////
+// Author: Marissa Kwon
+// Module Name: keyboard_decoder.sv
+// Description: takes in  bit raw data from keyboard and outputs the corresponding 8 bit value to mux
+///////////////////////////////////////////////////////
 module keyboard_decoder (
-input logic clk;
-input logic key_in;
-output logic [7:0] key_out;
+  input logic [7:0] key_dec;
+  output logic [7:0] key_out;
 );
 
-logic check_start;
-logic check_ack;
-logic parity;
-
-//use s2p shift reg to separate data bits
-s2p_shift (
-.C(clk);
-.SI(key_in);
-.PO(key_out);
-);
-
+always_comb
+  case(key_dec)
+    8'b0000_0001: key_out = 8'b0000_0001;  // B
+    8'b0000_0010: key_out = 8'b0000_0010;  // Y
+    8'b0000_0101: key_out = 8'b0000_0101;  // UP
+    8'b0000_0110: key_out = 8'b0000_0110;  // DOWN
+    8'b0000_0111: key_out = 8'b0000_0111;  // LEFT
+    8'b0000_1000: key_out = 8'b0000_1000;  // RIGHT
+    8'b0000_1001: key_out = 8'b0000_1001;  // A
+    8'b0000_1010: key_out = 8'b0000_1010;  // X
+    default: 0000_0000;  // no change
 endmodule
