@@ -43,7 +43,19 @@ module top(
   
   //Inverter for reset to connect to encoder
   assign in_reset = ~reset_n;
-
+  
+  
+  //decoder for IR
+  IR_decoder ir_dec(
+    .IR_in(ir_data),
+    .IR_out(ir_mux));
+  
+  
+  //decoder for keyboard
+  keyboard_decoder kb_decoder(
+    .key_dec(kb_data),
+    .key_out(key_mux));
+  
   //multiplexer that chooses ir, keyboard, or button board
   multiplexer mux(
     .key_mux(key_mux),
