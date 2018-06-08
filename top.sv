@@ -5,24 +5,25 @@
 ///////////////////////////////////////////////////////
 
 module top(
-  input logic reset_n,
-  input logic re_button,
-  input logic load,
+  input logic reset_n,  
+  input logic re_button,  //reset for keyboard reader
   input logic clk,
-  input logic snes_clk,
-  input logic snes_latch,
-  input logic kb_in_serial,
-  input logic ir_in,
-  input logic [7:0] button_in,
-  input logic [1:0] dip,
-  output logic snes_out);
+  input logic snes_clk, //connected to encoder
+  input logic snes_latch,  //connected to encoder
+  input logic kb_in_serial,  //keyboard data to FPGA
+  input logic ir_in,  //ir data received by FPGA
+  input logic [7:0] button_in,  //button data to FPGA
+  input logic [1:0] dip,  //FPGA switches that connect to mux
+  output logic snes_out); //output data from encoder to snes console
   
-  logic [7:0] key_mux, ir_mux, b_mux;
-  logic [10:0] kb_data;
-  logic [31:0] ir_data;
-  logic [7:0] mux_en;
-  logic in_reset;
-  logic clock_2MHz;
+  
+  //Internal variables
+  logic [7:0] key_mux, ir_mux, b_mux; //connection between each decoder to mux
+  logic [7:0] kb_data;  //kb reader to decoder data
+  logic [31:0] ir_data; //ir reader to decoder data
+  logic [7:0] mux_en; //data from mux to encoder
+  logic in_reset;  //inverted reset_n that goes to encoder
+  logic clock_2MHz;  //default clk speed
   logic clock_1MHz,
 
   //built in module that access's our chip's oscillator 
