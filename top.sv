@@ -6,6 +6,7 @@
 
 module top(
   input logic reset_n,
+  input logic re_button,
   input logic load,
   input logic clk,
   input logic snes_clk,
