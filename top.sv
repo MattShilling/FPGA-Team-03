@@ -8,17 +8,19 @@ module top(
   input logic reset_n,
   input logic load,
   input logic clk,
-  input logic clock,
+  input logic snes_clk,
+  input logic snes_latch,
   input logic kb_in_serial,
   input logic ir_in,
   input logic [7:0] button_in,
   input logic [1:0] dip,
-  output logic [2:0] snes_out);
+  output logic snes_out);
   
   logic [7:0] key_mux, ir_mux, b_mux;
   logic [10:0] kb_data;
   logic [31:0] ir_data;
   logic [7:0] mux_en;
+  logic in_reset;
   logic clock_2MHz;
   logic clock_1MHz,
 
@@ -35,7 +37,10 @@ module top(
     .clock_1MHz(clock_1MHz));
     
   //Inverter for button input
-  b_mux = ~button_in;
+  assign b_mux = ~button_in;
+  
+  //Inverter for reset to connect to encoder
+  assign in_reset = ~reset_n;
 
   //multiplexer that chooses ir, keyboard, or button board
   multiplexer mux(
@@ -47,9 +52,9 @@ module top(
   
   //takes in the data from controller and sends that data to the snes console
   snes_encoder snes(
-    .clock(clock),
-    .reset(reset_n),
-    .load(load),
+    .clock(snes_clk),
+    .reset(in_reset),
+    .load(snes_latch),
     .d(mux_en),
     .snes_output(snes_out));
   
