@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////
 // Author: Marissa Kwon
 // Module Name: keyboard_decoder.sv
-// Description: takes in  bit raw data from keyboard and outputs the corresponding 8 bit value to mux
+// Description: takes in 8 bit raw data from keyboard and outputs the corresponding 8 bit value to mux
 ///////////////////////////////////////////////////////
 module keyboard_decoder (
   input logic [7:0] key_dec;
