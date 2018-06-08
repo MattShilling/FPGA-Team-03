@@ -19,7 +19,7 @@
 module TOP_IR_READER(
 		input ir_signal, IR_READER_CLK, reset,
 		output reg avail, 
-		output reg [7:0] ir_reader_out);
+		output reg [32:0] ir_reader_out);
 		
 		reg [3:0] ir_width_count; // width count of ir_signal
 		reg low_bit;  // low bit from comparator
@@ -69,7 +69,7 @@ module TOP_IR_READER(
 		.en(load_bits), // able to load bits (aka seen start bit)
 		.reset(reset),
 		.serial_in(serial_data),
-		.q(ir_reader_out),
+		.q(ir_reader_out[32:1]),
 		.avail(avail) ); // shift register is full 
 	
 endmodule
