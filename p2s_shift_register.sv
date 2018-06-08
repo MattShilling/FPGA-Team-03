@@ -1,4 +1,4 @@
-module shift_register #(parameter N = 8) (
+module p2s_shift #(parameter N = 8) (
 	input logic clk,
 	input logic reset,
 	input logic load,
