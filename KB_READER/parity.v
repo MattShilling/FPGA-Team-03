@@ -1,7 +1,7 @@
  ////////////////////////////////////////////////////////
 //Author: Matt Shilling
 //Module Name: parity.sv
-//Description: Top module check parity for the kb data
+//Description: module to check parity for the kb data
 ///////////////////////////////////////////////////////
  
  module parity(input [8:0] pdata, input en, input reset, output pass);
