@@ -6,11 +6,10 @@
 
 module top(
   input logic reset_n,  
-  input logic re_button,  //reset for keyboard reader
-  input logic clk,
+  input logic re_kb,  //reset for keyboard reader
   input logic snes_clk, //connected to encoder
   input logic snes_latch,  //connected to encoder
-  input logic kb_in_serial,  //keyboard data to FPGA
+  input logic [1:0] kb_in_serial,  //keyboard data to FPGA (both clock and data)
   input logic ir_in,  //ir data received by FPGA
   input logic [7:0] button_in,  //button data to FPGA
   input logic [1:0] dip,  //FPGA switches that connect to mux
@@ -44,12 +43,26 @@ module top(
   //Inverter for reset to connect to encoder
   assign in_reset = ~reset_n;
   
+  //reader for IR
+  TOP_IR_READER(
+    .ir_signal(ir_in),
+    .IR_READER_CLK(!!!!!),
+    .reset(reset_n),
+    .avail(!!!!!),
+    .ir_reader_out(ir_data));
+  
   
   //decoder for IR
   IR_decoder ir_dec(
     .IR_in(ir_data),
     .IR_out(ir_mux));
   
+  //reader for keyboard
+  TOP kb_top(
+    .kb_in(kb_in_serial),
+    .reset(re_kb),
+    .kb_reader_out(kb_data),
+    .avail(!!!!!));
   
   //decoder for keyboard
   keyboard_decoder kb_decoder(
