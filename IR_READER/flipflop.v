@@ -1,10 +1,10 @@
 module ff(input s, r,
-		  output reg q);
+		  output reg q=0);
 		  
-	always @(s)
-		begin
-			if(s) q = 1;
-			else  q = 0;
+	always @(posedge s, posedge r) begin
+		//if(s) q <= ~q;
+		//else q <= ~q;
+		q <= ~q;
 		end 
 
 endmodule		
