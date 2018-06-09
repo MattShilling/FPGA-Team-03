@@ -45,7 +45,7 @@ module top(
   assign in_reset = ~reset_n;
   
   //reader for IR
-  TOP_IR_READER(
+  TOP_IR_READER ir_reader(
     .ir_signal(ir_in),
     .IR_READER_CLK(clock_10KHz),
     .reset(reset_n),
