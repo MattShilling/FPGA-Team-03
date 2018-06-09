@@ -50,7 +50,7 @@ module TOP(input [1:0] kb_in,
 	end 
 	
 	// initialize shiftreg module, 11 bits read from KB per key press
-	shiftreg #(.N(11))KB_data(
+	kb_shiftreg #(.N(11))KB_data(
 		.clk(~kb_in[0]),
 		.reset(reset),
 		.sin(kb_in[1]),
