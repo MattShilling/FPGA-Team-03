@@ -37,7 +37,7 @@ module TOP_IR_READER(
 		assign serial_data = low_bit & high_bit;
 		
 		// counter to measure ir width, 4 bits wide
-		counter #(.N(4)) IR_WIDTH(
+		ir_counter #(.N(4)) IR_WIDTH(
 		.en(ir_signal),
 		.clk(IR_READER_CLK),
 		.res(~ir_signal),
