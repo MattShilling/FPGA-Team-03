@@ -25,6 +25,7 @@ module top(
   logic clock_2MHz;  //default clk speed
   logic clock_10KHz;
   logic available;
+  logic available1;
 
   //built in module that access's our chip's oscillator 
   OSCH #("2.08") osc_int (
@@ -63,7 +64,7 @@ module top(
     .kb_in(kb_in_serial),
     .reset(re_kb),
     .kb_reader_out(kb_data),
-    .avail(available));
+    .avail(available1));
   
   //decoder for keyboard
   keyboard_decoder kb_decoder(
