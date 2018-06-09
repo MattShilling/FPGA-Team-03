@@ -6,12 +6,13 @@
 
 module shiftreg #(parameter N=11) 
 	(input clk, reset, sin,
-	 output reg full,
-	 output reg [N-1:0] q);
+	 output wire full,
+	 output reg [N-1:0] q,
+	 output reg [3:0] counter);
 	 
-	 reg [3:0] counter;
+	 //reg [3:0] counter;
 	 
-	 always @(posedge clk, posedge reset)
+	 always @(posedge clk, posedge reset) begin
 	 
 		if(reset) begin 
 			q <= 0;
@@ -20,14 +21,20 @@ module shiftreg #(parameter N=11)
 			
 		else begin
 	
-			if(counter == N) full <= 1;
+			if(counter == N) begin 
+				q <= 0;
+				counter <= 0;
+			end
 			
 			else begin	
 				q <= {q[N-2:0], sin};
 				counter <= counter + 1;
-				full <= 0;
+				//full <= 0;
 			end 
 		end
+	end
 
+	assign full = (counter == N);
 endmodule
+			
 			
