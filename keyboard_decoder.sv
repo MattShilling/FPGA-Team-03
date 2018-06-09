@@ -6,9 +6,10 @@
 module keyboard_decoder (
   input logic [7:0] key_dec;
   output logic [7:0] key_out;
+  input logic latch;
 );
 
-always_comb
+  always_ff @ (posedge latch)
   case(key_dec)
     8'b0000_0001: key_out = 8'b0000_0001;  // B
     8'b0000_0010: key_out = 8'b0000_0010;  // Y
