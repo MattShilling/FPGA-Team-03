@@ -1,0 +1,20 @@
+add wave *
+force [kb_in_serial[0]} 1 @ 0
+force [kb_in_serial[0]} 1 @ 10, 0 @ 20 -repeat 20
+
+force re_kb 1 @ 0, 0 @ 5
+
+force [kb_in_serial[1]} 0 @ 0, 1 @ 25, 0 @ 65, 1 @ 85, 0 @ 125, 1 @ 185, 0 @ 225
+
+force clock_10KHz 1 @ 0us, 0 @ 50us -repeat 100us
+force ir_in 0 @ 0, 1 @ 10ms, 0 @ 11.5ms, 1 @ 15ms, 0 @ 16ms, 1 @ 17ms, 0 @ 18ms, 1 @ 19ms, 0 @ 19.5ms, 1 @ 20ms, 0 @ 20.5ms, 1 @ 21ms, 0 @ 22ms, 1 @ 23ms, 0 @ 24ms
+force reset_n 1 @ 1ms, 0 @ 2ms
+
+force button_in 8'b11111110 @ 0
+
+force dip 2'b11 @ 0
+
+force snes_clk 
+
+
+
