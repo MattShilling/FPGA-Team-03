@@ -20,4 +20,5 @@ module IR_decoder(
     4'x0A0A: IR_out = 8'b0000_1001;  // A
     4'x0A12: IR_out = 8'b0000_1010;  // X
     default: 8'b0000_0000;  // no change
+  endcase
 endmodule
