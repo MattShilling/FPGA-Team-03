@@ -23,7 +23,7 @@ module top(
   logic [7:0] mux_en; //data from mux to encoder
   logic in_reset;  //inverted reset_n that goes to encoder
   logic clock_2MHz;  //default clk speed
-  logic clock_1MHz;
+  logic clock_10KHz;
   logic available;
 
   //built in module that access's our chip's oscillator 
@@ -33,10 +33,10 @@ module top(
     .SEDSTDBY());
   
   //clock divider
-  ClockDivider clk_div(
-    .clock_2MHz(clock_2MHz),
-    .reset_n(reset_n),
-    .clock_1MHz(clock_1MHz));
+  clock_divider clk_div(
+    .clk(clock_2MHz),
+    .reset(reset_n),
+    .clk_10khz(clock_10KHz));
     
   //Inverter for button input
   assign b_mux = ~button_in;
@@ -47,7 +47,7 @@ module top(
   //reader for IR
   TOP_IR_READER(
     .ir_signal(ir_in),
-    .IR_READER_CLK(!!!!!),
+    .IR_READER_CLK(clock_10KHz),
     .reset(reset_n),
     .avail(available),
     .ir_reader_out(ir_data));
