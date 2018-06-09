@@ -56,7 +56,8 @@ module top(
   //decoder for IR
   IR_decoder ir_dec(
     .IR_in(ir_data),
-    .IR_out(ir_mux));
+    .IR_out(ir_mux),
+    .latch(available));
   
   //reader for keyboard
   TOP kb_top(
@@ -68,7 +69,8 @@ module top(
   //decoder for keyboard
   keyboard_decoder kb_decoder(
     .key_dec(kb_data),
-    .key_out(key_mux));
+    .key_out(key_mux),
+    .latch(available));
   
   //multiplexer that chooses ir, keyboard, or button board
   multiplexer mux(
