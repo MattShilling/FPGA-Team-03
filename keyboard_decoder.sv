@@ -4,9 +4,9 @@
 // Description: takes in 8 bit raw data from keyboard and outputs the corresponding 8 bit value to mux
 ///////////////////////////////////////////////////////
 module keyboard_decoder (
-  input logic [7:0] key_dec;
-  output logic [7:0] key_out;
-  input logic latch;
+  input logic [7:0] key_dec,
+  output logic [7:0] key_out,
+  input logic latch
 );
 
   always_ff @ (posedge latch)
@@ -19,6 +19,6 @@ module keyboard_decoder (
     8'b0000_1000: key_out = 8'b0000_1000;  // RIGHT
     8'b0000_1001: key_out = 8'b0000_1001;  // A
     8'b0000_1010: key_out = 8'b0000_1010;  // X
-    default: 8'b0000_0000;  // no change
+    default: key_out = 8'b0000_0000;  // no change
   endcase
 endmodule
