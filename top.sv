@@ -35,7 +35,6 @@ module top(
   //clock divider
   clock_divider clk_div(
     .clk(clock_2MHz),
-    .reset(reset_n),
     .clk_10khz(clock_10KHz));
     
   //Inverter for button input
