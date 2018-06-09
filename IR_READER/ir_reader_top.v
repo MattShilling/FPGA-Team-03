@@ -18,19 +18,19 @@
 
 module TOP_IR_READER(
 		input ir_signal, IR_READER_CLK, reset,
-		output reg avail, 
-		output reg [31:0] ir_reader_out);
+		output wire avail, 
+		output wire [31:0] ir_reader_out);
 		
-		reg [3:0] ir_width_count; // width count of ir_signal
-		reg low_bit;  // low bit from comparator
-		reg high_bit; // high bit from comparator
+		wire [3:0] ir_width_count; // width count of ir_signal
+		wire low_bit;  // low bit from comparator
+		wire high_bit; // high bit from comparator
 		wire serial_data; // data to store in the ir reader shiftreg
-		reg start_bit; // start bit detected 
-		reg stop_bit;
+		wire start_bit; // start bit detected 
+		wire stop_bit;
 		
 		// enable to start shifting in to shift reg, 
 		// depends on if there was a start bit detected
-		reg load_bits; 
+		wire load_bits; 
 		
 		// if low & high bit: 9 < ir width = HIGH BIT
 		// if low & !high bit: 4 < ir width < 9 = LOW BIT
@@ -60,7 +60,7 @@ module TOP_IR_READER(
 		
 		// flip flop to stick when there was a start bit
 		ff STARTED(
-		.s(start_bit), // have we seen the start bit
+		.s(start_bit), // || avail), // have we seen the start bit
 		.r(avail), // if the SR is full, reset
 		.q(load_bits) ); // should we load bits into the SR
 		
@@ -70,7 +70,7 @@ module TOP_IR_READER(
 		.en(load_bits), // able to load bits (aka seen start bit)
 		.reset(reset),
 		.serial_in(serial_data),
-		.q({ir_reader_out, stop_bit}),
+		.q(ir_reader_out),
 		.avail(avail) ); // shift register is full 
 	
 endmodule
