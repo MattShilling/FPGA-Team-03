@@ -6,9 +6,10 @@
 module IR_decoder(
   input logic [15:0] IR_in;
   output logic IR_out;
+  input logic latch
 );
 
-always_comb
+  always_ff @ (posedge latch) 
   case(IR_in)
     4'x0A0B: IR_out = 8'b0000_0001;  // B
     4'x0A02: IR_out = 8'b0000_0010;  // Y
