@@ -1,10 +1,11 @@
-module ff(input s, r,
-		  output reg q=0);
-		  
-	always @(posedge s, posedge r) begin
-		//if(s) q <= ~q;
-		//else q <= ~q;
-		q <= ~q;
-		end 
-
-endmodule		
+module counter #(parameter N=4)
+			(input en, clk, res,
+			output reg [N-1:0] q = 0);
+		
+		always @(posedge clk)
+			begin
+				if (res) q <= 0;
+				else if (en)  q <= q + 1;
+			end
+	
+endmodule
