@@ -24,8 +24,8 @@ module top(
   logic in_reset;  //inverted reset_n that goes to encoder
   logic clock_2MHz;  //default clk speed
   logic clock_10KHz;
-  logic available;
-  logic available1;
+  logic ir_available;
+  logic kb_available;
 
   //built in module that access's our chip's oscillator 
   OSCH #("2.08") osc_int (
@@ -49,7 +49,7 @@ module top(
     .ir_signal(ir_in),
     .IR_READER_CLK(clock_10KHz),
     .reset(reset_n),
-    .avail(available),
+    .avail(ir_available),
     .ir_reader_out(ir_data));
   
   
@@ -57,20 +57,20 @@ module top(
   IR_decoder ir_dec(
     .IR_in(ir_data),
     .IR_out(ir_mux),
-    .latch(available));
+    .latch(ir_available));
   
   //reader for keyboard
   TOP kb_top(
     .kb_in(kb_in_serial),
     .reset(re_kb),
     .kb_reader_out(kb_data),
-    .avail(available1));
+    .avail(kb_available1));
   
   //decoder for keyboard
   keyboard_decoder kb_decoder(
     .key_dec(kb_data),
     .key_out(key_mux),
-    .latch(available));
+    .latch(kb_available));
   
   //multiplexer that chooses ir, keyboard, or button board
   multiplexer mux(
