@@ -4,7 +4,7 @@
 //Description: shift reg module to send data to kb decoder
 ///////////////////////////////////////////////////////
 
-module shiftreg #(parameter N=11) 
+module kb_shiftreg #(parameter N=11) 
 	(input clk, reset, sin,
 	 output wire full,
 	 output reg [N-1:0] q,
