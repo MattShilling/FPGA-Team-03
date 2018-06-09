@@ -20,4 +20,5 @@ module keyboard_decoder (
     8'b0000_1001: key_out = 8'b0000_1001;  // A
     8'b0000_1010: key_out = 8'b0000_1010;  // X
     default: 8'b0000_0000;  // no change
+  endcase
 endmodule
