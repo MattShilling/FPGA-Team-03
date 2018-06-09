@@ -1,4 +1,4 @@
-module counter(input en, clk, res,
+module ir_counter(input en, clk, res,
 			   output reg [3:0] q);
 		
 		always @(posedge clk)
