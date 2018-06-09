@@ -18,7 +18,7 @@ module shiftreg #(parameter N = 33)
 			else q <= 0;
 		end 
 	
-	counter #(.N(6)) AVAIL_COUNTER(
+	ir_counter #(.N(6)) AVAIL_COUNTER(
 		.en(en),
 		.clk(shift),
 		.res(reset_count),
