@@ -4,8 +4,8 @@
 // Description: takes in 16 bit raw data from keyboard and outputs the corresponding 8 bit value to mux
 ///////////////////////////////////////////////////////
 module IR_decoder(
-  input logic [15:0] IR_in,
-  output logic IR_out,
+  input logic [31:0] IR_in,
+  output logic [31:0] IR_out,
   input logic latch
 );
 
